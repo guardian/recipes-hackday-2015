@@ -1,0 +1,22 @@
+{
+  "name": "recipes-hackday-2015",
+  "version": "1.0.0",
+  "description": "Hack day project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardian/recipes-hackday-2015.git"
+  },
+  "author": "jbmk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guardian/recipes-hackday-2015/issues"
+  },
+  "homepage": "https://github.com/guardian/recipes-hackday-2015#readme",
+  "devDependencies": {
+    "browserify": "^12.0.1"
+  }
+}
