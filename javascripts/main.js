@@ -1,3 +1,3 @@
 var recipe = require('./recipe');
 
-window.alert('Started');
+console.log(JSON.stringify(recipe));
