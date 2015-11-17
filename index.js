@@ -28,6 +28,8 @@ ko.computed(function() {
 	var currentText = model.currentText();
 	speaker.speak(currentText);
 });
+
+ko.applyBindings(model);
 },{"./model":2,"./recipe":3,"./speaker":4,"./voiceListen":5,"knockout":6}],2:[function(require,module,exports){
 var ko = require('knockout');
 var recipe = require('./recipe');
@@ -57,7 +59,7 @@ module.exports = [
 	"Let's cook cheese on toast",
 	"Preheat your grill to the medium setting.",
 	"Grate or julienne your cheese.",
-	"Slice your bread. I’m using a free range, open source, organic San Francisco sourdough).",
+	"Slice your bread. In this example, I’m using a free range, open source, organic San Francisco sourdough).",
 	"Remove the half toasted bread and turn it, so that the untoasted side is facing upwards.",
 	"Place 100g of cheese on each slice, and return to the grill for 3-5 minutes.",
 	"Remove your cheese on toast from the grill, and add splashes of Lea & Perrins sauce and a sprinkle of popping candy."

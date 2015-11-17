@@ -27,3 +27,5 @@ ko.computed(function() {
 	var currentText = model.currentText();
 	speaker.speak(currentText);
 });
+
+ko.applyBindings(model, document.body);
