@@ -3,4 +3,7 @@
 ````
 npm install -g browserify
 npm run build
+
+npm install http-server
+npm http-server
 ````
