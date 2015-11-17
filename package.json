@@ -4,7 +4,7 @@
   "description": "Hack day project",
   "main": "index.js",
   "scripts": {
-    "build": ""
+    "build": "browserify javascripts/main.js -o index.js -s 'recipe'"
   },
   "repository": {
     "type": "git",

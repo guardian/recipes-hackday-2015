@@ -2,5 +2,5 @@
 
 ````
 npm install -g browserify
-browserify javascripts/main.js -o index.js -s 'recipe'
+npm run build
 ````
