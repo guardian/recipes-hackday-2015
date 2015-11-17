@@ -12,7 +12,7 @@ function Model() {
 		}
 	};
 	this.previous = function () {
-		if (position() > 0) {
+		if (position() > 1) {
 			position(position() - 1);
 		}
 	};

@@ -7,20 +7,20 @@ var voiceListen = require('./voiceListen');
 var speaker = require('./speaker');
 var model = require('./model');
 
-voiceListen.register('next', function() {
+voiceListen.register(['next', 'continue'], function() {
 	console.log('next');
 	model.next();
 });
 
-voiceListen.register('previous', function() {
+voiceListen.register(['previous', 'back'], function() {
     console.log('previous');
     model.previous();
 });
 
-voiceListen.register('repeat', function() {
+voiceListen.register(['repeat', 'what', 'again'], function() {
 	console.log('repeat');
 	speaker.speak(model.currentText());
-})
+});
 
 voiceListen.call();
 
@@ -43,7 +43,7 @@ function Model() {
 		}
 	};
 	this.previous = function () {
-		if (position() > 0) {
+		if (position() > 1) {
 			position(position() - 1);
 		}
 	};
@@ -54,12 +54,13 @@ function Model() {
 }
 },{"./recipe":3,"knockout":6}],3:[function(require,module,exports){
 module.exports = [
+	"Let's cook cheese on toast",
 	"Preheat your grill to the medium setting.",
 	"Grate or julienne your cheese.",
-	"Slice your bread (in this example I’m using a free range open source organic San Francisco sourdough).",
-	"Remove the half toasted bread and turn it so the untoasted side is facing upwards.",
-	"Place 100g of cheese on each slice and return to the grill for 3-5 minutes.",
-	"Remove your cheese on toast from the grill and add splashes of Lea & Perrins sauce and a sprinkle of popping candy."
+	"Slice your bread. I’m using a free range, open source, organic San Francisco sourdough).",
+	"Remove the half toasted bread and turn it, so that the untoasted side is facing upwards.",
+	"Place 100g of cheese on each slice, and return to the grill for 3-5 minutes.",
+	"Remove your cheese on toast from the grill, and add splashes of Lea & Perrins sauce and a sprinkle of popping candy."
 ];
 },{}],4:[function(require,module,exports){
 module.exports = new Speaker();
@@ -81,9 +82,12 @@ var voiceListen = {}
 
 voiceListen.registry = {}
 
-voiceListen.register = function(key, callback){
-    voiceListen.registry[key] = callback;
-    return true;
+voiceListen.register = function(words, callback){
+    var keys = (words instanceof Array) ? words : [words];
+
+    keys.forEach(function(key) {
+        voiceListen.registry[key] = callback;
+    });
 }
 
 voiceListen.call = function() {    

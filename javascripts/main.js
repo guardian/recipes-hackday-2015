@@ -6,17 +6,17 @@ var voiceListen = require('./voiceListen');
 var speaker = require('./speaker');
 var model = require('./model');
 
-voiceListen.register('next', function() {
+voiceListen.register(['next', 'continue'], function() {
 	console.log('next');
 	model.next();
 });
 
-voiceListen.register('previous', function() {
+voiceListen.register(['previous', 'back'], function() {
     console.log('previous');
     model.previous();
 });
 
-voiceListen.register('repeat', function() {
+voiceListen.register(['repeat', 'what', 'again'], function() {
 	console.log('repeat');
 	speaker.speak(model.currentText());
 });

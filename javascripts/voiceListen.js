@@ -2,9 +2,12 @@ var voiceListen = {}
 
 voiceListen.registry = {}
 
-voiceListen.register = function(key, callback){
-    voiceListen.registry[key] = callback;
-    return true;
+voiceListen.register = function(words, callback){
+    var keys = (words instanceof Array) ? words : [words];
+
+    keys.forEach(function(key) {
+        voiceListen.registry[key] = callback;
+    });
 }
 
 voiceListen.call = function() {    
