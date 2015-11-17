@@ -1,4 +1,3 @@
-var lodash = require('lodash');
 var voiceListen = {}
 
 voiceListen.registry = {}
