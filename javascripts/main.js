@@ -4,11 +4,15 @@ var recipe = require('./recipe');
 var speak = require('./speak');
 var ko = require('knockout');
 var voiceListen = require('./voiceListen');
+var lodash = require('lodash');
 
-voiceListen('stop', function() {
-    window.alert('stop!')
+voiceListen.register('next', function() {
+    window.alert('next!')
 });
 
-console.log(JSON.stringify(recipe));
+voiceListen.register('previous', function() {
+    window.alert('back!')
+});
 
-speak();
+voiceListen.call()
+
