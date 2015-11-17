@@ -5,50 +5,85 @@ var recipe = require('./recipe');
 var ko = require('knockout');
 var voiceListen = require('./voiceListen');
 var speaker = require('./speaker');
+var model = require('./model');
 
 voiceListen.register('next', function() {
-    window.alert('next!')
+	console.log('next');
+	model.next();
 });
 
 voiceListen.register('previous', function() {
-    window.alert('back!')
+    console.log('previous');
+    model.previous();
 });
+
+voiceListen.register('repeat', function() {
+	console.log('repeat');
+	speaker.speak(model.currentText());
+})
 
 voiceListen.call();
 
-speaker.speak('Hello, world! This is the voice API');
-},{"./recipe":2,"./speaker":3,"./voiceListen":4,"knockout":5}],2:[function(require,module,exports){
-module.exports = {
-	ingredients : {},
-	method : {}
-};
-},{}],3:[function(require,module,exports){
+ko.computed(function() {
+	var currentText = model.currentText();
+	speaker.speak(currentText);
+});
+},{"./model":2,"./recipe":3,"./speaker":4,"./voiceListen":5,"knockout":6}],2:[function(require,module,exports){
+var ko = require('knockout');
+var recipe = require('./recipe');
+
+module.exports = new Model();
+
+function Model() {
+	var position = ko.observable(1);
+
+	this.next = function () {
+		if (position() < recipe.length) {
+			position(position() + 1);
+		}
+	};
+	this.previous = function () {
+		if (position() > 0) {
+			position(position() - 1);
+		}
+	};
+
+	this.currentText = ko.computed(function(){
+		return recipe[position() -1];
+	});
+}
+},{"./recipe":3,"knockout":6}],3:[function(require,module,exports){
+module.exports = [
+	"Preheat your grill to the medium setting.",
+	"Grate or julienne your cheese.",
+	"Slice your bread (in this example I’m using a free range open source organic San Francisco sourdough).",
+	"Remove the half toasted bread and turn it so the untoasted side is facing upwards.",
+	"Place 100g of cheese on each slice and return to the grill for 3-5 minutes.",
+	"Remove your cheese on toast from the grill and add splashes of Lea & Perrins sauce and a sprinkle of popping candy."
+];
+},{}],4:[function(require,module,exports){
 module.exports = new Speaker();
 
 function Speaker() {
-	var self = this;
+	this.speak = function(text) {
+		var msg = new SpeechSynthesisUtterance();
+		msg.volume = 1; // 0 to 1
+		msg.rate = 0.8; // 0.1 to 10
+		msg.pitch = 1; //0 to 2
+		msg.text = text;
+		msg.lang = 'en-GB';
 
-	self.speak = function(text) {
-		self.cancel;
-		window.speechSynthesis.speak(new Sentence(text));
+		window.speechSynthesis.speak(msg);
 	};
-
-	self.cancel = window.speechSynthesis.cancel;
 }
-
-function Sentence(text) {
-	var sentence = new SpeechSynthesisUtterance(text);
-	sentence.lang = 'en-US';
-	return sentence;
-}
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var voiceListen = {}
 
 voiceListen.registry = {}
 
 voiceListen.register = function(key, callback){
     voiceListen.registry[key] = callback;
-    return true
+    return true;
 }
 
 voiceListen.call = function() {    
@@ -76,7 +111,7 @@ voiceListen.call = function() {
 
 module.exports = voiceListen;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /*!
  * Knockout JavaScript library v3.4.0
  * (c) Steven Sanderson - http://knockoutjs.com/

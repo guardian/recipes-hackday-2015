@@ -4,7 +4,7 @@ voiceListen.registry = {}
 
 voiceListen.register = function(key, callback){
     voiceListen.registry[key] = callback;
-    return true
+    return true;
 }
 
 voiceListen.call = function() {    

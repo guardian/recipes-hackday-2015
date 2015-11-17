@@ -1,18 +1,14 @@
 module.exports = new Speaker();
 
 function Speaker() {
-	var self = this;
+	this.speak = function(text) {
+		var msg = new SpeechSynthesisUtterance();
+		msg.volume = 1; // 0 to 1
+		msg.rate = 0.8; // 0.1 to 10
+		msg.pitch = 1; //0 to 2
+		msg.text = text;
+		msg.lang = 'en-GB';
 
-	self.speak = function(text) {
-		self.cancel;
-		window.speechSynthesis.speak(new Sentence(text));
+		window.speechSynthesis.speak(msg);
 	};
-
-	self.cancel = window.speechSynthesis.cancel;
-}
-
-function Sentence(text) {
-	var sentence = new SpeechSynthesisUtterance(text);
-	sentence.lang = 'en-US';
-	return sentence;
 }
