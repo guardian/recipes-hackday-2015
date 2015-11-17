@@ -29,3 +29,8 @@ ko.computed(function() {
 });
 
 ko.applyBindings(model, document.body);
+
+// If device supports it, stop standby
+if (window.navigator.requestWakeLock) {
+	window.navigator.requestWakeLock('screen');
+}
