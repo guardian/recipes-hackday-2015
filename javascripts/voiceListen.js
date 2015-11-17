@@ -22,11 +22,11 @@ voiceListen.call = function() {
         var words = transcript.split(' ');
         var lastWord = words[words.length -1];
         if(Object.keys(voiceListen.registry).indexOf(lastWord.trim()) !== -1) {
-            var key = lastWord.trim()
-            console.log("key:")
-            console.log(key)
-            console.log("callback:")
-            console.log(voiceListen.registry[key])
+            var key = lastWord.trim();
+            // console.log("key:")
+            // console.log(key)
+            // console.log("callback:")
+            // console.log(voiceListen.registry[key])
             voiceListen.registry[key]();
         }
     };
