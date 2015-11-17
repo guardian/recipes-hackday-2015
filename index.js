@@ -3,12 +3,17 @@
 
 var recipe = require('./recipe');
 var speak = require('./speak');
-window.ko = require('knockout');
+var ko = require('knockout');
+var voiceListen = require('./voiceListen');
+
+voiceListen('stop', function() {
+    window.alert('stop!')
+});
 
 console.log(JSON.stringify(recipe));
 
 speak();
-},{"./recipe":2,"./speak":3,"knockout":4}],2:[function(require,module,exports){
+},{"./recipe":2,"./speak":3,"./voiceListen":4,"knockout":5}],2:[function(require,module,exports){
 module.exports = {
 	ingredients : {},
 	method : {}
@@ -25,6 +30,24 @@ function speak() {
     speechSynthesis.speak(utterance);
 }
 },{}],4:[function(require,module,exports){
+module.exports = voiceListen;
+
+var recognition = new webkitSpeechRecognition();
+recognition.continuous = true;
+recognition.interimResults = false;
+recognition.start();
+
+function voiceListen(key, callback) {
+    recognition.onresult = function (event) {
+        var lastResult = event.results[event.results.length - 1];
+        var transcript = lastResult[0].transcript;
+        var words = transcript.split(' ');
+        var lastWord = words[words.length -1];
+
+        console.log(lastWord, lastResult[0].confidence);
+    };
+}
+},{}],5:[function(require,module,exports){
 /*!
  * Knockout JavaScript library v3.4.0
  * (c) Steven Sanderson - http://knockoutjs.com/
